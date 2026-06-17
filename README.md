@@ -13,11 +13,24 @@
 
 현재 사이트는 서버 기능이 필요 없는 정적 사이트라서 GitHub Pages가 가장 단순하고 안정적인 선택입니다.
 
-1. GitHub에서 새 저장소를 만듭니다.
+목표 배포 주소:
+
+```text
+https://kanto00.github.io/iyehyoung/
+```
+
+1. GitHub에서 `kanto00/iyehyoung` public 저장소를 만듭니다.
 2. 이 폴더 안의 파일들을 저장소 루트에 올립니다.
 3. 저장소 `Settings` → `Pages`로 이동합니다.
 4. `Build and deployment`의 `Source`를 `GitHub Actions`로 설정합니다.
 5. `main` 브랜치에 푸시하면 Actions가 실행되고, 완료 후 Pages URL이 생성됩니다.
+
+Git으로 올릴 때는 저장소 생성 후 아래 명령을 사용합니다.
+
+```bash
+git remote add origin https://github.com/kanto00/iyehyoung.git
+git push -u origin main
+```
 
 ## 로컬 확인
 
