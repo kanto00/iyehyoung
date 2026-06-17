@@ -144,80 +144,188 @@
       line-height: 1.65;
     }
 
-    .summary-strip {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      border: 1px solid var(--black);
-      border-top: 0;
-      margin-bottom: 42px;
-    }
-
-    .summary-item {
-      padding: 17px 14px;
-      border-right: 1px solid var(--black);
-      min-height: 116px;
-    }
-
-    .summary-item:last-child {
-      border-right: 0;
-    }
-
-    .summary-item span {
-      display: block;
-      font-size: 12px;
-      color: var(--gray-600);
-      margin-bottom: 7px;
-      font-weight: 700;
-    }
-
-    .summary-item b {
-      display: block;
-      font-size: 15px;
-      line-height: 1.45;
-    }
-
     .section-title {
       margin: 0 0 16px;
-      font-size: 16px;
+      font-size: 20px;
+      line-height: 1;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       color: var(--gray-600);
+      font-weight: 820;
+    }
+
+    .keyword-nav-wrap {
+      margin-bottom: 34px;
     }
 
     .tabs {
-      position: sticky;
-      top: 0;
+      position: relative;
       z-index: 20;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: center;
+      gap: 12px;
+      border: 0;
+      background: transparent;
+      margin-bottom: 14px;
+      overflow: visible;
+    }
+
+    .tab-button {
+      --shape-width: 220px;
+      --shape-height: 154px;
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--black);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+      height: 160px;
+      padding: 0;
+      font-family: inherit;
+      cursor: pointer;
+      isolation: isolate;
+    }
+
+    .tab-button[data-shape="ellipse"] {
+      --shape-width: 210px;
+      --shape-height: 128px;
+    }
+
+    .tab-button[data-shape="burst"] {
+      --shape-width: 242px;
+      --shape-height: 160px;
+    }
+
+    .tab-button:focus-visible {
+      outline: 2px solid var(--black);
+      outline-offset: 4px;
+    }
+
+    .tab-shape {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: min(var(--shape-width), 100%);
+      height: var(--shape-height);
+      object-fit: contain;
+      transform: translate(-50%, -50%);
+      transition: opacity 140ms ease, transform 140ms ease;
+      z-index: 0;
+    }
+
+    .tab-shape--active {
+      opacity: 0;
+    }
+
+    .tab-label {
+      position: relative;
+      z-index: 1;
+      display: block;
+      color: var(--black);
+      font-size: 22px;
+      font-weight: 860;
+      line-height: 1.1;
+      white-space: nowrap;
+      transition: color 140ms ease;
+    }
+
+    .tab-button.active,
+    .tab-button:hover,
+    .tab-button:focus-visible {
+      color: var(--white);
+    }
+
+    .tab-button.active .tab-shape--inactive,
+    .tab-button:hover .tab-shape--inactive,
+    .tab-button:focus-visible .tab-shape--inactive {
+      opacity: 0;
+    }
+
+    .tab-button.active .tab-shape--active,
+    .tab-button:hover .tab-shape--active,
+    .tab-button:focus-visible .tab-shape--active {
+      opacity: 1;
+    }
+
+    .tab-button.active .tab-label,
+    .tab-button:hover .tab-label,
+    .tab-button:focus-visible .tab-label {
+      color: var(--white);
+    }
+
+    .tab-button:hover .tab-shape,
+    .tab-button:focus-visible .tab-shape {
+      transform: translate(-50%, -50%) scale(1.025);
+    }
+
+    .keyword-hover-strip {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
       border: 1px solid var(--black);
       background: var(--white);
-      margin-bottom: 0;
+      margin: 0 0 30px;
+      min-height: 220px;
+      overflow: hidden;
+      transition: opacity 140ms ease, max-height 180ms ease, min-height 180ms ease, margin 180ms ease, border-width 180ms ease;
     }
 
-    .tab-button {
-      appearance: none;
-      border: 0;
+    .keyword-detail {
+      padding: 24px 26px 26px;
+      min-height: 220px;
       border-right: 1px solid var(--black);
-      background: var(--white);
-      color: var(--black);
-      padding: 17px 12px;
-      font-family: inherit;
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 0;
-      cursor: pointer;
-      transition: background 160ms ease, color 160ms ease;
+      opacity: 1;
+      transition: opacity 120ms ease;
     }
 
-    .tab-button:last-child {
+    .keyword-detail:last-child {
       border-right: 0;
     }
 
-    .tab-button.active,
-    .tab-button:hover {
-      background: var(--black);
-      color: var(--white);
+    .keyword-detail span {
+      display: block;
+      color: var(--gray-600);
+      font-size: 17px;
+      font-weight: 820;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .keyword-detail b {
+      display: block;
+      color: var(--black);
+      font-size: 21px;
+      font-weight: 860;
+      line-height: 1.52;
+    }
+
+    .js .keyword-hover-strip {
+      max-height: 0;
+      min-height: 0;
+      opacity: 0;
+      border-width: 0;
+      margin-bottom: 24px;
+    }
+
+    .js .keyword-nav-wrap.is-previewing .keyword-hover-strip {
+      max-height: 240px;
+      min-height: 220px;
+      opacity: 1;
+      border-width: 1px;
+      margin-bottom: 34px;
+    }
+
+    .js .keyword-detail span,
+    .js .keyword-detail b {
+      opacity: 0;
+      transition: opacity 120ms ease;
+    }
+
+    .js .keyword-detail.visible span,
+    .js .keyword-detail.visible b {
+      opacity: 1;
     }
 
     .tab-panel {
@@ -539,33 +647,60 @@
         grid-template-columns: 1fr;
       }
 
-      .summary-strip {
-        grid-template-columns: 1fr;
-        border-top: 1px solid var(--black);
-      }
-
-      .summary-item {
-        border-right: 0;
-        border-bottom: 1px solid var(--black);
-        min-height: auto;
-      }
-
-      .summary-item:last-child {
-        border-bottom: 0;
-      }
-
       .tabs {
-        grid-template-columns: 1fr;
-        position: relative;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px 8px;
       }
 
       .tab-button {
-        border-right: 0;
-        border-bottom: 1px solid var(--black);
+        --shape-width: 168px;
+        --shape-height: 118px;
+        height: 124px;
       }
 
-      .tab-button:last-child {
+      .tab-button[data-shape="ellipse"] {
+        --shape-width: 158px;
+        --shape-height: 96px;
+      }
+
+      .tab-button[data-shape="burst"] {
+        --shape-width: 178px;
+        --shape-height: 118px;
+      }
+
+      .tab-label {
+        font-size: 18px;
+      }
+
+      .keyword-hover-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .js .keyword-nav-wrap.is-previewing .keyword-hover-strip {
+        max-height: 230px;
+        min-height: 192px;
+      }
+
+      .js .keyword-detail {
+        display: none;
+      }
+
+      .js .keyword-detail.visible {
+        display: block;
+      }
+
+      .keyword-detail {
+        border-right: 0;
         border-bottom: 0;
+        min-height: 192px;
+      }
+
+      .keyword-detail:last-child {
+        border-bottom: 0;
+      }
+
+      .keyword-detail b {
+        font-size: 19px;
       }
 
       .process,
@@ -619,21 +754,43 @@
         
       </p>
 </section>
-<section aria-label="portfolio summary" class="summary-strip">
-<div class="summary-item"><span>01</span><b>문제를 목표·구성요소·제약·액션으로 분해합니다.</b></div>
-<div class="summary-item"><span>02</span><b>누구의 지시가 없어도 문제를 인식하고 방향을 정합니다.</b></div>
-<div class="summary-item"><span>03</span><b>추상 모델과 실제 구현물을 오가며 결과를 만듭니다.</b></div>
-<div class="summary-item"><span>04</span><b>내 방식보다 사실에 더 충성하며 빠르게 업데이트합니다.</b></div>
-<div class="summary-item"><span>05</span><b>가설·퍼널·지표·인터뷰를 통해 제품을 개선합니다.</b></div>
-</section>
 <p class="section-title">Five Keywords</p>
+<div class="keyword-nav-wrap">
 <nav aria-label="portfolio tabs" class="tabs" role="tablist">
-<button aria-controls="structure" aria-selected="true" class="tab-button active" data-tab="structure" id="tab-structure" role="tab" type="button">구조화</button>
-<button aria-controls="independent" aria-selected="false" class="tab-button" data-tab="independent" id="tab-independent" role="tab" type="button">독립적 사고</button>
-<button aria-controls="abstract" aria-selected="false" class="tab-button" data-tab="abstract" id="tab-abstract" role="tab" type="button">추상과 구체</button>
-<button aria-controls="flexibility" aria-selected="false" class="tab-button" data-tab="flexibility" id="tab-flexibility" role="tab" type="button">유연함</button>
-<button aria-controls="execution" aria-selected="false" class="tab-button" data-tab="execution" id="tab-execution" role="tab" type="button">분석적 실행</button>
+<button aria-controls="structure" aria-selected="true" class="tab-button active" data-shape="star" data-tab="structure" id="tab-structure" role="tab" type="button">
+<img alt="" aria-hidden="true" class="tab-shape tab-shape--inactive" src="assets/tabs/structure-inactive.png"/>
+<img alt="" aria-hidden="true" class="tab-shape tab-shape--active" src="assets/tabs/structure-active.png"/>
+<span class="tab-label">구조화</span>
+</button>
+<button aria-controls="independent" aria-selected="false" class="tab-button" data-shape="ellipse" data-tab="independent" id="tab-independent" role="tab" type="button">
+<img alt="" aria-hidden="true" class="tab-shape tab-shape--inactive" src="assets/tabs/independent-inactive.png"/>
+<img alt="" aria-hidden="true" class="tab-shape tab-shape--active" src="assets/tabs/independent-active.png"/>
+<span class="tab-label">독립적 사고</span>
+</button>
+<button aria-controls="abstract" aria-selected="false" class="tab-button" data-shape="burst" data-tab="abstract" id="tab-abstract" role="tab" type="button">
+<img alt="" aria-hidden="true" class="tab-shape tab-shape--inactive" src="assets/tabs/abstract-inactive.png"/>
+<img alt="" aria-hidden="true" class="tab-shape tab-shape--active" src="assets/tabs/abstract-active.png"/>
+<span class="tab-label">추상과 구체</span>
+</button>
+<button aria-controls="flexibility" aria-selected="false" class="tab-button" data-shape="ellipse" data-tab="flexibility" id="tab-flexibility" role="tab" type="button">
+<img alt="" aria-hidden="true" class="tab-shape tab-shape--inactive" src="assets/tabs/flexibility-inactive.png"/>
+<img alt="" aria-hidden="true" class="tab-shape tab-shape--active" src="assets/tabs/flexibility-active.png"/>
+<span class="tab-label">유연함</span>
+</button>
+<button aria-controls="execution" aria-selected="false" class="tab-button" data-shape="star" data-tab="execution" id="tab-execution" role="tab" type="button">
+<img alt="" aria-hidden="true" class="tab-shape tab-shape--inactive" src="assets/tabs/execution-inactive.png"/>
+<img alt="" aria-hidden="true" class="tab-shape tab-shape--active" src="assets/tabs/execution-active.png"/>
+<span class="tab-label">분석적 실행</span>
+</button>
 </nav>
+<section aria-hidden="true" aria-label="keyword preview" class="keyword-hover-strip">
+<div class="keyword-detail" data-tab="structure"><span>01</span><b>문제를<br/>목표·구성요소·제약·액션으로<br/>분해합니다.</b></div>
+<div class="keyword-detail" data-tab="independent"><span>02</span><b>누구의 지시가 없어도 문제를<br/>인식하고 방향을 정합니다.</b></div>
+<div class="keyword-detail" data-tab="abstract"><span>03</span><b>추상 모델과 실제 구현물을<br/>오가며 결과를 만듭니다.</b></div>
+<div class="keyword-detail" data-tab="flexibility"><span>04</span><b>내 방식보다 사실에 더 충성하며<br/>빠르게 업데이트합니다.</b></div>
+<div class="keyword-detail" data-tab="execution"><span>05</span><b>가설·퍼널·지표·인터뷰를 통해<br/>제품을 개선합니다.</b></div>
+</section>
+</div>
 <section aria-labelledby="tab-structure" class="tab-panel active" id="structure" role="tabpanel">
 <div class="panel-header">
 <div>
@@ -1015,6 +1172,8 @@
 <script>
     const buttons = document.querySelectorAll('.tab-button');
     const panels = document.querySelectorAll('.tab-panel');
+    const keywordNav = document.querySelector('.keyword-nav-wrap');
+    const keywordDetails = document.querySelectorAll('.keyword-detail');
 
     const setActiveTab = (target, shouldUpdateHash = true) => {
       buttons.forEach((item) => {
@@ -1032,8 +1191,39 @@
       }
     };
 
+    const setPreviewTab = (target) => {
+      if (!keywordNav) return;
+
+      keywordNav.classList.add('is-previewing');
+      const keywordStrip = keywordNav.querySelector('.keyword-hover-strip');
+      keywordStrip?.setAttribute('aria-hidden', 'false');
+      keywordDetails.forEach((item) => {
+        const isVisible = item.dataset.tab === target;
+        item.classList.toggle('visible', isVisible);
+        item.setAttribute('aria-hidden', String(!isVisible));
+      });
+    };
+
+    const clearPreviewTab = () => {
+      if (!keywordNav) return;
+
+      keywordNav.classList.remove('is-previewing');
+      const keywordStrip = keywordNav.querySelector('.keyword-hover-strip');
+      keywordStrip?.setAttribute('aria-hidden', 'true');
+      keywordDetails.forEach((item) => {
+        item.classList.remove('visible');
+        item.setAttribute('aria-hidden', 'true');
+      });
+    };
+
     buttons.forEach((button, index) => {
-      button.addEventListener('click', () => setActiveTab(button.dataset.tab));
+      button.addEventListener('click', () => {
+        setActiveTab(button.dataset.tab);
+        setPreviewTab(button.dataset.tab);
+      });
+
+      button.addEventListener('mouseenter', () => setPreviewTab(button.dataset.tab));
+      button.addEventListener('focus', () => setPreviewTab(button.dataset.tab));
 
       button.addEventListener('keydown', (event) => {
         if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
@@ -1049,6 +1239,16 @@
 
         buttons[nextIndex].focus();
         setActiveTab(buttons[nextIndex].dataset.tab);
+        setPreviewTab(buttons[nextIndex].dataset.tab);
+      });
+    });
+
+    keywordNav?.addEventListener('mouseleave', clearPreviewTab);
+    keywordNav?.addEventListener('focusout', () => {
+      requestAnimationFrame(() => {
+        if (!keywordNav.contains(document.activeElement)) {
+          clearPreviewTab();
+        }
       });
     });
 
